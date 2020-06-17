@@ -1,5 +1,55 @@
-<div class="container">
+<!--<div class="container">
   <header class="jumbotron">
     <p>{{ content }}</p>
   </header>
+</div>
+-->
+
+<ul class="nav nav-tabs mt-3">
+  <!--<li class="nav-item">
+    <a class="nav-link active" href="#">Active</a>
+  </li>-->
+  <li class="nav-item" *ngFor="let account of accountList">
+    <a [ngClass]="account.id==currentAccountId?'active':''" class="nav-link clickable" (click)="onSelectAccount(account)">
+      {{account.type}}
+    </a>
+  </li>
+</ul>
+
+<div class="panel panel-default" *ngIf="currentAccount">
+  <dl class="row">
+    <dt class="col-sm-5">Type du compte :</dt>
+    <dd class="col-sm-7">{{currentAccount.type}}</dd>
+  </dl>
+
+  <dl class="row">
+    <dt class="col-sm-5">Description :</dt>
+    <dd class="col-sm-7">{{currentAccount.description}}</dd>
+  </dl>
+
+  <dl class="row">
+    <dt class="col-sm-5">Mantant :</dt>
+    <dd class="col-sm-7">{{currentAccount.balance|number:'0.2'}} €</dd>
+  </dl>
+
+  <dl class="row">
+    <dt class="col-sm-5">Type du compte :</dt>
+    <dd class="col-sm-7">{{currentAccount.type}}</dd>
+  </dl>
+
+  <div class="panel-body">
+    <button class="btn btn-success mt-0 mb-3 float-right" (click)="newTransfer()">Effectuer un virement</button>
+
+    <table class="table table-bordered" >
+      <tr>
+        <th>Opération</th><th>Montant</th><th>Price</th>
+      </tr>
+      <tr *ngFor="let transaction of currentAccountTransactions">
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.balance|number:'0.2'}} €</td>
+        <td>{{transaction.amount|number:'0.2'}} €</td>
+      </tr>
+    </table>
+  </div>
+
 </div>
